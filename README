@@ -1,0 +1,17 @@
+TexDoom
+
+contributors: collintb, dhartzog
+url: https://github.com/DonnerPartyOfOne/TexDoom
+
+Text RPG based on the popular FPS Doom. The Doom engine was open sourced
+after its release, and was built to be very modular. The engine itself
+can be modified and improved upon by modders, but its real strength lies
+in the fact that (on Linux), you pass in a .wad or .iwad file to the 
+engine executable. The Wad contains all map information, including enemies,
+weapon drops, powerups, ammo, and map layout.
+
+We plan to execute this project in much the same way - the code written
+will take in a text file containing specifically formatted information
+about a map, and run the game based on that information. In this way,
+logic and gameplay are separated and anyone who doesn't know how to code
+can still create their own maps. 
