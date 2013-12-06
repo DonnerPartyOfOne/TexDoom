@@ -1,9 +1,10 @@
+#include <string>
 class Weapon {
 	public:
 		int getWeaponPower();
-		int getAmmo();
+		string getWeaponName();
 
 	private:
 		int weaponPower;
-		int ammo;
+		string weaponName;
 }
