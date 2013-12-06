@@ -3,11 +3,12 @@ class Character {
 		int getAgility();
 		int getAccuracy();
 		int getMelee();
-		int getHitpoints();
+		int getCurrentHitpoints();
 
 	private:
 		int agility;
 		int accuracy;
 		int melee;
-		int hitpoints;
+		int maxHitpoints;
+		int currentHitpoints;
 }
