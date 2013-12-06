@@ -1,13 +1,9 @@
 class Weapon {
 	public:
-		int getWeaponAccuracy();
-		int getFireRate();
-		int getRange();
-		int getMagazineCapacity();
+		int getWeaponPower();
+		int getAmmo();
 
 	private:
-		int weaponAccuracy;
-		int fireRate;
-		int range;
-		int magazineCapacity;
+		int weaponPower;
+		int ammo;
 }
