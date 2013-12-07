@@ -2,6 +2,7 @@
 
 class Pickup {
 	public:
+		Pickup(string);
 		string getPickupName();
 
 	private:

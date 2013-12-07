@@ -2,6 +2,7 @@
 
 class Ammo: public Pickup {
 	public:
+		Ammo(string, int);
 		int getSlugs();
 		int getShells();
 		int getRockets();

@@ -3,6 +3,7 @@
 
 class Character {
 	public:
+		Character(string, int, int, int);
 		int getAgility();
 		int getAccuracy();
 		int getCurrentHitpoints();

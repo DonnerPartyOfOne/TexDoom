@@ -3,7 +3,7 @@
 
 class Player: public Character {
 	public:
-		Player(); // Constructor. Not sure what to do yet
+		Player(string); // Constructor. Not sure what to do yet
 
 		int getPerception();
 		int getMelee();
