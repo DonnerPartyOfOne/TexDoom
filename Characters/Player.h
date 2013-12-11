@@ -19,6 +19,8 @@ class Player: public Character {
 		void setMaxHitpoints(int);
 		void setArmourRating(int);
 
+		void rerollStats();
+
 	private:
 		list<Weapon> weaponList; // Keep all the weapons in a linked list
 

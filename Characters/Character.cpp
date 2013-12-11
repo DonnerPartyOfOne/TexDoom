@@ -3,6 +3,7 @@ Character::Character(string name, int agi, int acc, int max) {
 	agility = agi;
 	accuracy = acc;
 	maxHitpoints = max;
+	dead = false;
 }
 
 int Character::getAgility() {
@@ -23,5 +24,13 @@ Weapon Character:: getCurrentWeapon() {
 
 string Character::getCharacterName() {
 	return characterName;
+}
+
+bool Character::isDead() {
+	return dead;
+}
+
+void Character::kill() {
+	dead = true;
 }
 

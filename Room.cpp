@@ -1,40 +1,49 @@
-Room::Room(int number) {
+Room::Room(int number, int psize, int wsize, int csize) {
 	roomNumber = number;
+	pickupList = new Pickup[psize];
+	weaponList = new Weapon[wsize];
+	characterList = new Character[csize];
 }
 
-list<Pickup> Room::getPickupList() {
+Room::~Room() {
+	delete pickupList;
+	delete weaponList;
+	delete characterList;
+}
+
+Pickup* Room::getPickupList() {
 	return pickupList;
 }
 
-list<Weapon> Room::getWeaponList() {
+Weapon* Room::getWeaponList() {
 	return weaponList;
 }
 
-list<Character> Room::getCharacterList() {
+Character* Room::getCharacterList() {
 	return characterList;
 }
 
-void addPickup(Pickup add) {
-	pickupList.push_front(add);
+void addPickup(Pickup add, int index) {
+	pickupList[index] = add;
 }
 
-void addWeapon(Weapon add) {
-	pickupList.push_front(add);
+void addWeapon(Weapon add, int index) {
+	weaponList[index] = add;
 }
 
-void addCharacter(Character add) {
-	pickupList.push_front(add);
+void addCharacter(Character add, int index) {
+	characterList[index] = add;;
 }
 
-void removePickup(int) {
-
+void removePickup(int index) {
+	pickupList[index].pickupItem();
 }
 
-void removeWeapon(int) {
-
+void removeWeapon(int index) {
+	weaponList[index].pickupWeapon();
 }
 
-void removeCharacter(int) {
-
+void removeCharacter(int index) {
+	weaponlist[index].dead();
 }
 

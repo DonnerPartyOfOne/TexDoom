@@ -5,8 +5,10 @@ class Weapon {
 		void setWeaponPower(int);
 		int getWeaponPower();
 		string getWeaponName();
-
+		bool isPickedUp();
+		void pickupWeapon();
 	private:
 		int weaponPower;
 		string weaponName;
+		bool pickedUp;
 }

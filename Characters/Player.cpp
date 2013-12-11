@@ -49,3 +49,7 @@ void Player::setMaxHitpoints(int hp) {
 void Player::setArmourRating(int arm) {
 	armourRating = arm;
 }
+
+void Player::rerollStats() {
+
+}

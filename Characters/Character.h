@@ -11,6 +11,8 @@ class Character {
 		Weapon getCurrentWeapon();
 		string getCharacterName();
 
+		bool isDead();
+		void kill();
 	private:
 		int agility;
 		int accuracy;
@@ -19,4 +21,6 @@ class Character {
 
 		Weapon currentWeapon;
 		string characterName;
+
+		bool dead;
 }

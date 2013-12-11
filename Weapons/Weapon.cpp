@@ -1,6 +1,7 @@
 Weapon::Weapon(string name, int pow) {
 	weaponName = name;
-	weapon power = pow;
+	weaponPower = pow;
+	pickedUp = false;
 }
 
 void Weapon::setWeaponPower(int pow) {
@@ -13,4 +14,12 @@ int Weapon::getWeaponPower() {
 
 string Weapon::getWeaponName() {
 	return weaponName;
+}
+
+bool Weapon::isPickedUp() {
+	return pickedUp;
+}
+
+void Weapon::pickupWeapon() {
+	pickedUp = true;
 }
