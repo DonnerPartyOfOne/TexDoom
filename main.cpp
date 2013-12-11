@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
 	int numRooms;
 	int check;
 	char* filename;
-	Room** roomList;
+	Room** roomList; // Pointer to a list of pointers to rooms
 
 	// WAD Parsing Code
 	filename = argv[1];
@@ -62,9 +62,9 @@ int main(int argc, char* argv[]) {
 
 	// Interaction
 	while(playerLocation < roomList.size()) {
-		Pickup* currentPickupList = Room[playerLocation].getPickupList();
-		Weapon* currentWeaponList; = Room[playerLocation.getWeaponList();
-		Character* currentCharacterList = Room[playerLocation.getCharacterList();
+		Pickup* currentPickupList = Room[playerLocation]->getPickupList();
+		Weapon* currentWeaponList; = Room[playerLocation->getWeaponList();
+		Character* currentCharacterList = Room[playerLocation->getCharacterList();
 
 		while(!advance) {
 			// Show visible items and monsters

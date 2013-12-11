@@ -7,13 +7,16 @@ public Room {
 	public:
 		Room(int, int, int, int);
 		~Room();
+
 		Pickup* getPickupList();
 		Weapon* getWeaponList();
 		Character* getCharacterList();
+
 		void addPickup(Pickup*, int);
 		void addWeapon(Weapon*, int);
 		void addCharacter(Character*, int);
 		void addPlayer(Player*);
+
 		void removePickup(int);
 		void removeWeapon(int);
 		void removeCharacter(int);

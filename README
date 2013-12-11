@@ -3,6 +3,8 @@ TexDoom
 contributors: collintb, dhartzog
 url: https://github.com/DonnerPartyOfOne/TexDoom
 
+This project is currently under construction and is not in a working state.
+
 Text RPG based on the popular FPS Doom. The Doom engine was open sourced
 after its release, and was built to be very modular. The engine itself
 can be modified and improved upon by modders, but its real strength lies
