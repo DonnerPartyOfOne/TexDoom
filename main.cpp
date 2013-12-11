@@ -67,11 +67,22 @@ int main(int argc, char* argv[]) {
 		Character* currentCharacterList = Room[playerLocation.getCharacterList();
 
 		while(!advance) {
+			// Show visible items and monsters
+			roomList[playerLocation]->printCharacters();
+			roomList[playerLocation]->printPickups();
+			roomList[playerLocation]->printWeapons();
+
+			// Allow player to grab item or select target
 			cout << "Choose a target (1-n)";
-			roomList[playerLocation]->printRoom();
+			roomList[playerLocation]->printCharacters();
 			cin >> target;
 
-			if (target > 0 && target <= roomList[playerLocation]->
+			if ((target > 0) && (target <= roomList[playerLocation]->getCharacterQuantity()))
+				roomList[playerLocation]->attack(player, target);
+
+			// Monster attacks
+			for (int i = 0; i < roomList[playerLocation]->getCharacterQuantity())
+				roomList[playerLocation]->attack(player, i);
 		}
 	}
 }

@@ -18,9 +18,11 @@ public Room {
 		void removeWeapon(int);
 		void removeCharacter(int);
 
-		void attack(Player*, Character*);
-		void printRoom();
-		void getCharacterQuantity();
+		void attack(Player*, int);
+		void printCharacters();
+		void printPickups();
+		void printWeapons();
+		int getCharacterQuantity();
 	private:
 		int roomNumber;
 		Player** player;

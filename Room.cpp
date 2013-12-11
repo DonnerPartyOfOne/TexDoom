@@ -51,15 +51,31 @@ void removeCharacter(int index) {
 	weaponlist[index]->dead();
 }
 
-void attack(Player* player, Character* creature) {
+void attack(Player* player, int index) {
 
 }
 
-void printRoom() {
+void printCharacters() {
 	for (int i = 0; i < characterList.size(); i++) {
 		cout << (i + 1) << ") " <<
 			"Name: " << characterList[i]->getName() << 
 			" Current Health: " << characterList[i]->getCurrentHealth() <<
 			" Agility: " << characterList[i]->getAgility() << endl;
 	}
+}
+
+void printPickups() {
+
+}
+
+void printWeapons() {
+
+}
+
+int getCharacterQuantity() {
+	int i = 0;
+	while (characterList[i])
+		i++;
+
+	return i;
 }
