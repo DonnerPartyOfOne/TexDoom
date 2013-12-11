@@ -53,3 +53,10 @@ void Player::setArmourRating(int arm) {
 void Player::rerollStats() {
 
 }
+
+void Player::printStats() {
+	cout << "Perception: " << perception << endl <<
+		"Agility: " << agility << endl <<
+		"Accuracy: " << accuracy << endl <<
+		"Melee: " << melee << endl;
+}

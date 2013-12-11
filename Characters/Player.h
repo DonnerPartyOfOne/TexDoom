@@ -20,7 +20,7 @@ class Player: public Character {
 		void setArmourRating(int);
 
 		void rerollStats();
-
+		void printStats();
 	private:
 		list<Weapon> weaponList; // Keep all the weapons in a linked list
 

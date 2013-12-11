@@ -10,15 +10,21 @@ public Room {
 		Pickup* getPickupList();
 		Weapon* getWeaponList();
 		Character* getCharacterList();
-		void addPickup(Pickup, int);
-		void addWeapon(Weapon, int);
-		void addCharacter(Character, int);
+		void addPickup(Pickup*, int);
+		void addWeapon(Weapon*, int);
+		void addCharacter(Character*, int);
+		void addPlayer(Player*);
 		void removePickup(int);
 		void removeWeapon(int);
-		void removeCharacter(int)
+		void removeCharacter(int);
+
+		void attack(Player*, Character*);
+		void printRoom();
+		void getCharacterQuantity();
 	private:
 		int roomNumber;
-		Pickup* pickupList;;
-		Weapon* weaponList;
-		Character* characterList;
+		Player** player;
+		Pickup** pickupList;
+		Weapon** weaponList;
+		Character** characterList;
 }

@@ -10,13 +10,6 @@
 
 using namespace std;
 
-void printStats(Player player) {
-        cout << "Perception: " << player.getPerception() << endl <<
-                "Agility: " << player.getAgility() << endl <<
-                "Accuracy: " << player.getAccuracy() << endl <<
-                "Melee: " << player.getMelee() << endl;
-}
-
 int main(int argc, char* argv[]) {
 	string line;
 	string playerName;
@@ -24,7 +17,7 @@ int main(int argc, char* argv[]) {
 	int numRooms;
 	int check;
 	char* filename;
-	Room* roomList;
+	Room** roomList;
 
 	// WAD Parsing Code
 	filename = argv[1];
@@ -34,7 +27,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	roomList = new Room[numRooms];
+	roomList = new Room*[numRooms];
 
 	// Game start
 	cout << "Welcome to Tex Doom! blah blah blah" << endl;
@@ -47,22 +40,38 @@ int main(int argc, char* argv[]) {
 	player.rerollStats();
 	printStats(player);
 
-	cout << "First roll. Type '0' to reroll or '1' to start the game" << endl;
-	cin >> check;
-
 	int reroll = 1;
 
 	// Query user for reroll
 	while (reroll) {
+		cout << "Type '0' to reroll or '1' to start the game." << endl;
+		cin >> check;
 		if (check == 0) {
 			player.rerollStats();
-			printStats(player);
-			cout << "Type '0' to reroll or '1' to start the game." << endl;
-			cin >> check;
+			player.printStats();
 		}
 		else if (check == 1)
 			reroll = 0;
 		else
 			cout << "Please enter either '0' to reroll or '1' to start the game." << endl;
+	}
+
+	int playerLocation = 0;
+	int target = 0;
+	bool advance = false;
+
+	// Interaction
+	while(playerLocation < roomList.size()) {
+		Pickup* currentPickupList = Room[playerLocation].getPickupList();
+		Weapon* currentWeaponList; = Room[playerLocation.getWeaponList();
+		Character* currentCharacterList = Room[playerLocation.getCharacterList();
+
+		while(!advance) {
+			cout << "Choose a target (1-n)";
+			roomList[playerLocation]->printRoom();
+			cin >> target;
+
+			if (target > 0 && target <= roomList[playerLocation]->
+		}
 	}
 }
