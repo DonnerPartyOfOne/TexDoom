@@ -1,8 +1,8 @@
-Room::Room(int number, int psize, int wsize, int csize) {
+Room::Room(int number) {
 	roomNumber = number;
-	pickupList = new Pickup*[psize];
-	weaponList = new Weapon*[wsize];
-	characterList = new Character*[csize];
+	pickupList = new vector<*Pickup>;
+	weaponList = new vector<*Weapon>;
+	characterList = new vector<*Character>;
 }
 
 Room::~Room() {
@@ -11,28 +11,40 @@ Room::~Room() {
 	delete characterList;
 }
 
-Pickup* Room::getPickupList() {
+vector<*Pickup>* Room::getPickupList() {
 	return pickupList;
 }
 
-Weapon* Room::getWeaponList() {
+vector<*Weapon>* Room::getWeaponList() {
 	return weaponList;
 }
 
-Character* Room::getCharacterList() {
+vector<*Character>* Room::getCharacterList() {
 	return characterList;
 }
 
-void addPickup(Pickup* add, int index) {
-	pickupList[index] = add;
+int Room::getNumPickups() {
+	return pickupList->size();
 }
 
-void addWeapon(Weapon* add, int index) {
-	weaponList[index] = add;
+int Room::getNumWeapons() {
+	return weaponList->size();
 }
 
-void addCharacter(Character* add, int index) {
-	characterList[index] = add;;
+int Room::getNumCharacters() {
+	return characterList->size();
+}
+
+void addPickup(Pickup* pickup) {
+	pickupList->push_back(pickup);
+}
+
+void addWeapon(Weapon* weapon) {
+	weaponList->push_back(weapon);
+}
+
+void addCharacter(Character* character) {
+	characterList->push_back(character);
 }
 
 void addPlayer(Player* add) {
@@ -40,23 +52,20 @@ void addPlayer(Player* add) {
 }
 
 void removePickup(int index) {
-	pickupList[index]->pickupItem();
+	pickupList->erase(pickupList->begin() + index);
 }
 
 void removeWeapon(int index) {
-	weaponList[index]->pickupWeapon();
+	weaponList->erase(weaponList->begin() + index);
 }
 
 void removeCharacter(int index) {
-	weaponlist[index]->dead();
+	weaponList->erase(weaponList->begin() + index);
 }
 
-void attack(Player* player, int index) {
-
-}
 
 void printCharacters() {
-	for (int i = 0; i < characterList.size(); i++) {
+	for (int i = 0; i < characterList->size(); i++) {
 		cout << (i + 1) << ") " <<
 			"Name: " << characterList[i]->getName() << 
 			" Current Health: " << characterList[i]->getCurrentHealth() <<
@@ -72,10 +81,7 @@ void printWeapons() {
 
 }
 
-int getCharacterQuantity() {
-	int i = 0;
-	while (characterList[i])
-		i++;
 
-	return i;
+void attack(Player* player, int index) {
+
 }

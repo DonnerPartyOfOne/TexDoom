@@ -2,34 +2,40 @@
 #include "PickupQuantity.cpp"
 #include "Weapon.cpp"
 #include "Character.cpp"
+#include <vector>
 
 public Room {
 	public:
-		Room(int, int, int, int);
+		Room(int);
 		~Room();
 
-		Pickup* getPickupList();
-		Weapon* getWeaponList();
-		Character* getCharacterList();
+		vector<*Pickup>* getPickupList();
+		vector<*Weapon>* getWeaponList();
+		vector<*Character>* getCharacterList();
 
-		void addPickup(Pickup*, int);
-		void addWeapon(Weapon*, int);
-		void addCharacter(Character*, int);
+	        int getNumPickups();
+	        int getNumWeapons();
+	        int getNumCharacters();
+
+		void addPickup(Pickup*);
+		void addWeapon(Weapon*);
+		void addCharacter(Character*);
 		void addPlayer(Player*);
 
 		void removePickup(int);
 		void removeWeapon(int);
 		void removeCharacter(int);
 
-		void attack(Player*, int);
 		void printCharacters();
 		void printPickups();
 		void printWeapons();
-		int getCharacterQuantity();
+
+	        void attack(int, Player*, int);
+
 	private:
 		int roomNumber;
-		Player** player;
-		Pickup** pickupList;
-		Weapon** weaponList;
-		Character** characterList;
+		Player* player;
+		vector<*Pickup> *pickupList;
+		vector<*Weapon> *weaponList;
+		vector<*Character> *characterList;
 }

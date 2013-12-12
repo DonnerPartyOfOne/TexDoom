@@ -1,10 +1,10 @@
-#include "Pickup.cpp"
-#include "PickupQuantity.cpp"
-#include "Player.cpp"
-#include "Character.cpp"
-#include "Weapon.cpp"
+#include "..Pickups/Pickup.cpp"
+#include "..Pickups/PickupQuantity.cpp"
+#include "..Characters/Player.cpp"
+#include "..CharactersCharacter.cpp"
+#include "..Weapons/Weapon.cpp"
 #include "Room.cpp"
-#include <list>
+#include <vector>
 #include <iostream>
 #include <fstream>
 
@@ -12,12 +12,10 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 	string line;
-	string playerName;
 	int lineNum;
 	int numRooms;
-	int check;
 	char* filename;
-	Room** roomList; // Pointer to a list of pointers to rooms
+	vector<*Room> roomList;
 
 	// WAD Parsing Code
 	filename = argv[1];
@@ -27,7 +25,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	roomList = new Room*[numRooms];
+	string playerName;
 
 	// Game start
 	cout << "Welcome to Tex Doom! blah blah blah" << endl;
@@ -41,6 +39,7 @@ int main(int argc, char* argv[]) {
 	printStats(player);
 
 	int reroll = 1;
+	int check;
 
 	// Query user for reroll
 	while (reroll) {
@@ -62,9 +61,9 @@ int main(int argc, char* argv[]) {
 
 	// Interaction
 	while(playerLocation < roomList.size()) {
-		Pickup* currentPickupList = Room[playerLocation]->getPickupList();
-		Weapon* currentWeaponList; = Room[playerLocation->getWeaponList();
-		Character* currentCharacterList = Room[playerLocation->getCharacterList();
+		vector<Pickup*>* currentPickupList = roomList[playerLocation]->getPickupList();
+		vector<*Weapon>* currentWeaponList; = roomList[playerLocation]->getWeaponList();
+		vector<*Character>* currentCharacterList = roomList[playerLocation]->getCharacterList();
 
 		while(!advance) {
 			// Show visible items and monsters
@@ -77,7 +76,7 @@ int main(int argc, char* argv[]) {
 			roomList[playerLocation]->printCharacters();
 			cin >> target;
 
-			if ((target > 0) && (target <= roomList[playerLocation]->getCharacterQuantity()))
+			if ((target > 0) && (target <= roomList[playerLocation]->getNumCharacters())
 				roomList[playerLocation]->attack(player, target);
 
 			// Monster attacks
