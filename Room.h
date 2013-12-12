@@ -1,17 +1,20 @@
-#include "Pickup.cpp"
 #include "PickupQuantity.cpp"
 #include "Weapon.cpp"
+#include "Player.cpp"
 #include "Character.cpp"
 #include <vector>
+#include <string>
 
-public Room {
+using namespace std;
+
+class Room {
 	public:
 		Room(int);
 		~Room();
 
-		vector<*Pickup>* getPickupList();
-		vector<*Weapon>* getWeaponList();
-		vector<*Character>* getCharacterList();
+		vector<Pickup*>* getPickupList();
+		vector<Weapon*>* getWeaponList();
+		vector<Character*>* getCharacterList();
 
 	        int getNumPickups();
 	        int getNumWeapons();
@@ -35,7 +38,7 @@ public Room {
 	private:
 		int roomNumber;
 		Player* player;
-		vector<*Pickup> *pickupList;
-		vector<*Weapon> *weaponList;
-		vector<*Character> *characterList;
-}
+		vector<Pickup*>* pickupList;
+		vector<Weapon*>* weaponList;
+		vector<Character*>* characterList;
+};

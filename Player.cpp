@@ -1,6 +1,4 @@
-Player::Player(string name) {
-	characterName = name;
-}
+#include "Player.h"
 
 int Player::getPerception() {
 	return perception;
@@ -60,3 +58,4 @@ void Player::printStats() {
 		"Accuracy: " << accuracy << endl <<
 		"Melee: " << melee << endl;
 }
+

@@ -1,8 +1,3 @@
-#include "..Pickups/Pickup.cpp"
-#include "..Pickups/PickupQuantity.cpp"
-#include "..Characters/Player.cpp"
-#include "..CharactersCharacter.cpp"
-#include "..Weapons/Weapon.cpp"
 #include "Room.cpp"
 #include <vector>
 #include <iostream>
@@ -15,7 +10,7 @@ int main(int argc, char* argv[]) {
 	int lineNum;
 	int numRooms;
 	char* filename;
-	vector<*Room> roomList;
+	vector<Room*> roomList;
 
 	// WAD Parsing Code
 	filename = argv[1];
@@ -36,7 +31,7 @@ int main(int argc, char* argv[]) {
 
 	cout << "Description of all player stats and current values blah blah" << endl;
 	player.rerollStats();
-	printStats(player);
+	player.printStats();
 
 	int reroll = 1;
 	int check;
@@ -62,8 +57,8 @@ int main(int argc, char* argv[]) {
 	// Interaction
 	while(playerLocation < roomList.size()) {
 		vector<Pickup*>* currentPickupList = roomList[playerLocation]->getPickupList();
-		vector<*Weapon>* currentWeaponList; = roomList[playerLocation]->getWeaponList();
-		vector<*Character>* currentCharacterList = roomList[playerLocation]->getCharacterList();
+		vector<Weapon*>* currentWeaponList = roomList[playerLocation]->getWeaponList();
+		vector<Character*>* currentCharacterList = roomList[playerLocation]->getCharacterList();
 
 		while(!advance) {
 			// Show visible items and monsters
@@ -76,12 +71,12 @@ int main(int argc, char* argv[]) {
 			roomList[playerLocation]->printCharacters();
 			cin >> target;
 
-			if ((target > 0) && (target <= roomList[playerLocation]->getNumCharacters())
-				roomList[playerLocation]->attack(player, target);
+			if ((target > 0) && (target <= roomList[playerLocation]->getNumCharacters())) {}
+				//roomList[playerLocation]->attack(player, target);
 
 			// Monster attacks
-			for (int i = 0; i < roomList[playerLocation]->getCharacterQuantity())
-				roomList[playerLocation]->attack(player, i);
+			for (int i = 0; i < roomList[playerLocation]->getNumCharacters(); i++) {}
+				//roomList[playerLocation]->attack(player, i);
 		}
 	}
 }

@@ -1,8 +1,6 @@
-PickupQuantity::PickupQuantity(string name, int quantity) {
-	pickupName = name;
-	amount = quantity;
-}
+#include "PickupQuantity.h"
 
 int PickupQuantity::getAmount() {
 	return amount;
 }
+

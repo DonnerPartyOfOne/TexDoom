@@ -1,7 +1,4 @@
-Pickup::Pickup(string name) {
-	pickupName = name;
-	pickedUp = false;
-}
+#include "Pickup.h"
 
 string Pickup::getPickupName() {
 	return pickupName;

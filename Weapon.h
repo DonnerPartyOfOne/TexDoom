@@ -1,4 +1,7 @@
 #include <string>
+
+using namespace std;
+
 class Weapon {
 	public:
 		Weapon(string, int);
@@ -11,4 +14,6 @@ class Weapon {
 		int weaponPower;
 		string weaponName;
 		bool pickedUp;
-}
+};
+
+

@@ -1,3 +1,5 @@
+#include "Weapon.h"
+
 Weapon::Weapon(string name, int pow) {
 	weaponName = name;
 	weaponPower = pow;
