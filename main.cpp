@@ -5,6 +5,53 @@
 
 using namespace std;
 
+vector<Room*> parser(char* filename) {
+	string line;
+	vector<Room*> roomList;
+	ifstream myfile(filename);
+	int roomIndex = 0; 
+	if(myfile.is_open()){
+		while(getline(myfile, line)){
+			roomIndex++;
+			roomList.push_back(new Room(roomIndex));
+			for(int i = 0; i < line.size(); i = i+4){
+				string currentitem = line.substr(i,3);
+				int currentitemquantity = line[i+3]-'0';
+				if(currentitem == "FHP"){
+					for(int j = 0; j < currentitemquantity; j++)
+						roomList.back()->addCharacter(new Character(currentitem, 5,5,5,5));
+				} 
+				else if (currentitem == "FHS"){
+					for(int j = 0; j < currentitemquantity; j++) 
+                                                roomList.back()->addCharacter(new Character(currentitem,5,5,5,5));
+                                } 
+				else if (currentitem ==  "IMP"){
+					 for(int j = 0; j < currentitemquantity; j++) 
+                                                roomList.back()->addCharacter(new Character(currentitem,5,5,5,5));
+                                } 
+				else if (currentitem == "BER"){
+					 for(int j = 0; j < currentitemquantity; j++)
+						roomList.back()->addPickup(new Pickup(currentitem));
+				}
+				else if (currentitem == "VIS"){
+					 for(int j = 0; j < currentitemquantity; j++)
+						roomList.back()->addPickup(new Pickup(currentitem));
+				}
+				else if (currentitem =="SHO"){
+					 for(int j = 0; j < currentitemquantity; j++)
+						roomList.back()->addWeapon(new Weapon(currentitem, 5));
+				}
+				else if (currentitem == "SSH"){
+					 for(int j = 0; j < currentitemquantity; j++)
+						roomList.back()->addWeapon(new Weapon(currentitem, 10));
+				}
+				else  cout << "something in the wad is undefined";
+			}
+		}
+	}
+
+}
+
 int main(int argc, char* argv[]) {
 	string line;
 	int lineNum;
@@ -13,12 +60,7 @@ int main(int argc, char* argv[]) {
 	vector<Room*> roomList;
 
 	// WAD Parsing Code
-	filename = argv[1];
-	ifstream myfile(filename);
-	if (myfile.is_open()) {
-		while (getline(myfile, line)) {
-		}
-	}
+	roomList = parser(filename);
 
 	string playerName;
 

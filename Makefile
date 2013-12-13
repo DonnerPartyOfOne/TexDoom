@@ -1,2 +1,2 @@
-TexDoom: main.cpp ~/Project/Weapons/Weapon.cpp ~/Project/Characters/Character.cpp ~/Project/Characters/Player.cpp ~/Project/Pickups/Pickup.cpp ~/Project/Pickups/PickupQuantity.cpp Room.cpp
-	g++ main.cpp -o TexDoom
+texDoom: main.cpp Character.cpp Pickup.cpp PickupQuantity.cpp Player.cpp Room.cpp Weapon.cpp
+	g++ main.cpp -o texDoom
