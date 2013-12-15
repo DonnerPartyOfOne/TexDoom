@@ -3,7 +3,9 @@ TexDoom
 contributors: collintb, dhartzog
 url: https://github.com/DonnerPartyOfOne/TexDoom
 
-This project is currently under construction and is not in a working state.
+This project is currently under construction, but all of the interactions between classes
+should be operating properly. No numbers are balanced and the game doesn't run fully yet.
+Must use the WAD file given. Project is reviewable.
 
 Text RPG based on the popular FPS Doom. The Doom engine was open sourced
 after its release, and was built to be very modular. The engine itself

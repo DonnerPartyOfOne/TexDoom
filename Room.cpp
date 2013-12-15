@@ -37,6 +37,10 @@ int Room::getNumCharacters() {
 	return characterList->size();
 }
 
+Weapon* Room::getWeapon(int index) {
+	return weaponList->at(index);
+}
+
 void Room::addPickup(Pickup* pickup) {
 	pickupList->push_back(pickup);
 }
@@ -76,13 +80,26 @@ void Room::printCharacters() {
 }
 
 void Room::printPickups() {
-
+	for (int i = 0; i < pickupList->size(); i++) {
+		cout << (i + 1) << ") " <<
+			"Name: " << pickupList->at(i)->getPickupName() << endl;
+	}
 }
 
 void Room::printWeapons() {
-
+	for (int i = 0; i < weaponList->size(); i++ ) {
+		cout << (i + 1) << " ) " <<
+			"Name : " << weaponList->at(i)->getWeaponName() << endl;
+	}
 }
 
 void Room::attack(int a, Player* b, int c) {
-
+	if (a != 1 & a != 0)
+		cout << "derp" << endl;
+	if (a) {
+		characterList->at(c)->subtractHitpoints(b->getCurrentWeapon()->getWeaponPower());
+	}
+	else if (!a) {
+		b->subtractHitpoints(characterList->at(c)->getPower());
+	}
 }

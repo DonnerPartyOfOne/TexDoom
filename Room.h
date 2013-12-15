@@ -1,4 +1,4 @@
-#include "PickupQuantity.cpp"
+#include "Pickup.cpp"
 #include "Weapon.cpp"
 #include "Player.cpp"
 #include "Character.cpp"
@@ -19,6 +19,8 @@ class Room {
 	        int getNumPickups();
 	        int getNumWeapons();
 	        int getNumCharacters();
+
+		Weapon* getWeapon(int);
 
 		void addPickup(Pickup*);
 		void addWeapon(Weapon*);

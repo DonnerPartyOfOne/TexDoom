@@ -1,3 +1,7 @@
+int Character::getPower() {
+	return power;
+}
+
 int Character::getAgility() {
 	return agility;
 }
@@ -8,6 +12,10 @@ int Character::getAccuracy() {
 
 int Character::getCurrentHitpoints() {
 	return currentHitpoints;
+}
+
+void Character::subtractHitpoints(int sub) {
+	currentHitpoints -= sub;
 }
 
 string Character::getCharacterName() {
