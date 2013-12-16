@@ -3,6 +3,8 @@ TexDoom
 contributors: collintb, dhartzog
 url: https://github.com/DonnerPartyOfOne/TexDoom
 
+Usage: compile with make and run "./texDoom x", where x is the name of the wad file. Currently only setup to use the included testingwad, general wad parsing and gameplay not complete yet.
+
 This project is currently under construction, but all of the interactions between classes
 should be operating properly. No numbers are balanced and the game doesn't run fully yet.
 Must use the WAD file given. Project is reviewable.
