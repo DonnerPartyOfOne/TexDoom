@@ -1,2 +1,21 @@
-texDoom: main.cpp Character.cpp Character.h Pickup.cpp Pickup.h PickupQuantity.cpp PickupQuantity.h  Player.cpp Player.h Room.cpp Room.h Weapon.cpp Weapon.h
-	g++ main.cpp -o texDoom
+SOURCES := Character.cpp Pickup.cpp Player.cpp Weapon.cpp Room.cpp PickupQuantity.cpp main.cpp
+PROG := texDoom
+CFLAGS := -Wall -Wextra -g
+LDFLAGS :=
+
+# -MMD generates dependencies while compiling
+CFLAGS += -MMD
+CC := g++
+
+OBJFILES := $(SOURCES:.cpp=.o)
+DEPFILES := $(SOURCES:.cpp=.d)
+
+$(PROG) : $(OBJFILES)
+	$(LINK.o) $(LDFLAGS) -o $@ $^
+
+clean :
+	rm -f $(PROG) $(OBJFILES) $(DEPFILES)
+
+-include $(DEPFILES)
+
+

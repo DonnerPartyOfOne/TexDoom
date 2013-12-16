@@ -1,7 +1,5 @@
-#include "Pickup.cpp"
-#include "Weapon.cpp"
-#include "Player.cpp"
-#include "Character.cpp"
+#include "PickupQuantity.h"
+#include "Player.h"
 #include <vector>
 #include <string>
 

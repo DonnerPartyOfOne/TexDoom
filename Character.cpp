@@ -1,3 +1,4 @@
+#include "Character.h"
 int Character::getPower() {
 	return power;
 }

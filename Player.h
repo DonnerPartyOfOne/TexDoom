@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "Character.h"
-
+#include "Weapon.h"
 using namespace std;
 
 class Player: public Character {
