@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include <stdlib.h>
 int Player::getPerception() {
 	return perception;
 }
@@ -86,7 +86,21 @@ void Player::setArmourRating(int arm) {
 }
 
 void Player::rerollStats() {
-
+	perception = rand() % 10;
+	agility = rand() % 10;
+	accuracy = rand() % 10;
+	melee = rand() % 10;
+	if(perception+agility+accuracy+melee > 32){
+		if(perception >8)
+			perception -=2;
+		if(agility >8)
+			agility -=2;
+		if(accuracy >8)
+			accuracy -=2;
+		if(melee > 8)
+			melee -=2;
+		
+	}
 }
 
 void Player::printStats() {

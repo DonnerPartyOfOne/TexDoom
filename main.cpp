@@ -21,31 +21,31 @@ vector<Room*> parser(char* filename) {
 
 				if(currentitem == "FHP"){
 					for(int j = 0; j < currentitemquantity; j++)
-						roomList.back()->addCharacter(new Character(currentitem, 5,5,5,5));
+						roomList.back()->addCharacter(new Character("Former Human Private", 5,5,5,5));
 				}
 				else if (currentitem == "FHS"){
 					for(int j = 0; j < currentitemquantity; j++)
-                                                roomList.back()->addCharacter(new Character(currentitem,5,5,5,5));
+                                                roomList.back()->addCharacter(new Character("Former Human Sergeant",5,5,5,5));
                                 }
 				else if (currentitem ==  "IMP"){
 					 for(int j = 0; j < currentitemquantity; j++)
-                                                roomList.back()->addCharacter(new Character(currentitem,5,5,5,5));
+                                                roomList.back()->addCharacter(new Character("Imp",5,5,5,5));
                                 }
 				else if (currentitem == "BER"){
 					 for(int j = 0; j < currentitemquantity; j++)
-						roomList.back()->addPickup(new Pickup(currentitem));
+						roomList.back()->addPickup(new Pickup("Berserker"));
 				}
 				else if (currentitem == "VIS"){
 					 for(int j = 0; j < currentitemquantity; j++)
-						roomList.back()->addPickup(new Pickup(currentitem));
+						roomList.back()->addPickup(new Pickup("Invisibility"));
 				}
 				else if (currentitem =="SHO"){
 					 for(int j = 0; j < currentitemquantity; j++)
-						roomList.back()->addWeapon(new Weapon(currentitem, 5));
+						roomList.back()->addWeapon(new Weapon("Shotgun", 5));
 				}
 				else if (currentitem == "SSH"){
 					 for(int j = 0; j < currentitemquantity; j++)
-						roomList.back()->addWeapon(new Weapon(currentitem, 10));
+						roomList.back()->addWeapon(new Weapon("Super Shotgun", 10));
 				}
 				else  cout << "something in the wad is undefined";
 			}
@@ -65,18 +65,12 @@ int main(int argc, char* argv[]) {
 	filename = argv[1];
 	roomList = parser(filename);
 
-	cout << "Finished parsing" << endl;
-
-	roomList[0]->printCharacters();
-	roomList[0]->printPickups();
-	roomList[0]->printWeapons();
-
-	string playerName;
+	char playerName[255];
 
 	// Game start
 	cout << "Welcome to Tex Doom! blah blah blah" << endl;
 	cout << "Please enter your character's name!" << endl;
-	cin >> playerName;
+	cin.getline(playerName,255);
 
 	Player* player = new Player(playerName, 5, 5, 100, 5, 5);
 
