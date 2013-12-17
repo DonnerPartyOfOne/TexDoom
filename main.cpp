@@ -209,44 +209,81 @@ int main(int argc, char* argv[]) {
 
 	int playerLocation = 0;
 	int target = 0;
+	int playerTurn = 1;
+	int choice = 0;
 	bool advance = false;
 
 	// Interaction
-	//while(playerLocation < roomList.size()) {
-		//while(!advance) {
-			// Show visible items and monsters
-			cout << "Choose a weapon to pick up" << endl;
-			roomList[playerLocation]->printWeapons();
-			cin >> target;
+	while(playerLocation < roomList.size()) {
+		bool roomSearched = false;
+		while(!advance) {
+			if (player->isDead()) { // You're dead
+				advance = true;
+				cout << "You have died!" << endl;
+			}
+			else if (roomList[playerLocation]->getNumCharacters() == 0) { // Everything else is dead
+				if (roomList[playerLocation]->getNumPickups() == 0 && roomList[playerLocation]->getNumWeapons() == 0) { // You picked everything up
+					cout << "You have cleared the room. Advancing to next room." << endl;
+					advance = true;
+				}
+				else { // Still have stuff to pick up
 
-			Weapon* currentWeapon = roomList[playerLocation]->getWeapon(target - 1);
-			player->addWeapon(new Weapon(currentWeapon->getWeaponName(), currentWeapon->getWeaponPower()));
-			roomList[playerLocation]->removeWeapon(target - 1);
+				}
+			}
+			else { // Things are still alive
+				while (playerTurn) {
+					if (!roomSearched) { // Search option if room not searched yet
+						cout << "1) Backpack" << endl <<
+							"2) Fight!" << endl <<
+							"3) Search Room" << endl;
+						cin >> choice;
+					}
+					// Remove option if room searched and nothing to pick up
+					else if ((roomSearched) && (roomList[playerLocation]->getNumPickups() == 0) && (roomList[playerLocation]->getNumWeapons() == 0)) {
+						cout << "1) Backpack" << endl <<
+							"2) Fight!" << endl;
+						cin >> choice;
+					}
+					else { // Option to pick up items if room searched
+						cout << "1) Backpack" << endl <<
+							"2) Fight!" << endl <<
+							"3) Pickup Item" << endl;
+					}
 
-			player->setCurrentWeapon(0);
+					if (choice == 1) { // Backpack choice. Shows all current weapons and allows the user to equip a different weapon
+						int weapon;
+						player->printWeaponList();
+						cout << "Select a weapon to equip" << endl;
+						cout << "Current Weapon: " << player->getCurrentWeapon()->getWeaponName() << endl;
+						cin >> weapon;
+						player->setCurrentWeapon(weapon);
+					}
+					else if (choice == 2) { // Fight choice
+						int target;
+						roomList[playerLocation]->printCharacters();
+						cout << "Choose a target" << endl;
+						cin >> target;
 
-			cout << player->getCurrentWeapon()->getWeaponName() << endl;
+						roomList[playerLocation]->attack(1, player, target);
+					}
+					else if (choice == 3 && !roomSearched) { // Third choice if room isn't searched yet
+						roomSearched = true;
+						roomList[playerLocation]->printPickups();
+						roomList[playerLocation]->printWeapons();
+					}
+					// Third choice but it isn't available
+					else if (roomSearched && roomList[playerLocation]->getNumPickups() == 0 && roomList[playerLocation]->getNumWeapons() == 0) {
+						cout << "Invalid Command" << endl;
+					}
+					else if (roomSearched) { // Pickup items
+					}
+					else { // Bad command
+						cout << "Invalid Command" << endl;
+					}
+				}
 
-			cout << "Choose a pickup to pick up" << endl;
-			roomList[playerLocation]->printPickups();
-			cin >> target;
-
-			roomList[playerLocation]->removePickup(target - 1);
-			roomList[playerLocation]->printPickups();
-
-			// Allow player to grab item or select target
-			cout << "Choose a target (1-n)" << endl;
-			roomList[playerLocation]->printCharacters();
-			cin >> target;
-
-			if ((target > 0) && (target <= roomList[playerLocation]->getNumCharacters())) {}
-				roomList[playerLocation]->attack(1, player, target - 1);
-
-			roomList[playerLocation]->printCharacters();
-
-			// Monster attacks
-			roomList[playerLocation]->attack(0, player, 0);
-			cout << player->getCurrentHitpoints() << endl;
-		//}
-	//}
+				// Monster attacks
+			}
+		}
+	}
 }

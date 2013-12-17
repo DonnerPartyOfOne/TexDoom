@@ -40,6 +40,7 @@ class Player: public Character {
 
 		Weapon* getCurrentWeapon();
 		void setCurrentWeapon(int);
+		void printWeaponList();
 	private:
 		vector<Weapon*> weaponList;
 		Weapon* currentWeapon;

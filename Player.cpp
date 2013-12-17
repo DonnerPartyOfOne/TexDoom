@@ -118,3 +118,19 @@ void Player::setCurrentWeapon(int index) {
 	currentWeapon = weaponList.at(index);
 }
 
+void Player::printWeaponList() {
+	for (int i = 0; i < weaponList.size(); i++) {
+		string name = weaponList.at(i)->getWeaponName();
+		cout << "1) " << name << endl;
+		if (name == "Pistol" || name == "Chaingun")
+			cout << "Slugs: " << slugs << endl;
+		else if (name == "Shotgun" || name == "Super Shotgun")
+			cout << "Shells: " << shells << endl;
+		else if (name == "Rocket Launcher")
+			cout << "Rockets: " << rockets << endl;
+		else if (name == "Plasma Rifle" || name == "BFG 9000")
+			cout << "Plasma Cells: " << plasmaCells << endl;
+		else
+			cout << "Incorrect weapon name" << endl;
+	}
+}
