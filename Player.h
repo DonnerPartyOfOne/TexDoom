@@ -3,6 +3,7 @@
 #include <vector>
 #include "Character.h"
 #include "Weapon.h"
+#include "Pickup.h"
 using namespace std;
 
 class Player: public Character {
@@ -23,11 +24,7 @@ class Player: public Character {
 		int getPlasmaCells();
 
 		void addWeapon(Weapon*);
-
-		void addSlugs(int);
-		void addShells(int);
-		void addRockets(int);
-		void addPlasmaCells(int);
+		void pickupItem(Pickup*);
 
 		void setAgility(int);
 		void setAccuracy(int);

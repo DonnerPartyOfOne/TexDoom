@@ -1,4 +1,4 @@
-SOURCES := Character.cpp Pickup.cpp Player.cpp Weapon.cpp Room.cpp PickupQuantity.cpp main.cpp
+SOURCES := Character.cpp Pickup.cpp Player.cpp Weapon.cpp Room.cpp main.cpp
 PROG := texDoom
 CFLAGS := -Wall -Wextra -g
 LDFLAGS :=

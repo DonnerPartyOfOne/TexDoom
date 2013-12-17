@@ -24,22 +24,55 @@ int Player::getPlasmaCells() {
 	return plasmaCells;
 }
 
-void Player::addSlugs(int add) {
-        slugs += add;
-}
+void Player::pickupItem(Pickup* item){
+	if(item->getPickupName() == "HP+10"){
+		if((currentHitpoints>90) && (currentHitpoints < 100))
+			currentHitpoints = 100;
+		else if(currentHitpoints <=90)
+			currentHitpoints += 10;
+	}
+	if(item->getPickupName() == "HP+100"){
+		if(currentHitpoints < 100)
+			currentHitpoints = 100;
+	}
+	if(item->getPickupName() == "HP+1"){
+		if(currentHitpoints < 200)
+			currentHitpoints += 1;
+	}
+	if(item->getPickupName() == "Armor+100"){
+		if(armourRating < 100)
+			armourRating = 100;
+	}
+	if(item->getPickupName() == "Armor+1"){
+		if(armourRating < 200)
+			armourRating += 1;
+	}
+	if(item->getPickupName() == "Slugs"){
+		if((slugs < 200) && (slugs >180))
+			slugs = 200;
+		else if (slugs <=180)
+			slugs += 20;
+	}
+	if(item->getPickupName() == "Shotgun Shells"){
+                if((shells < 50) && (shells > 46))
+                        shells = 50;
+                else if (slugs <= 46)
+                        shells += 4;
+        }
+	if(item->getPickupName() == "Rockets"){
+                if((rockets < 50) && (rockets >48))
+                        rockets = 50;
+                else if (rockets <= 48)
+                        rockets += 2;
+        }
+	if(item->getPickupName() == "Plasma Cells"){
+                if((plasmaCells < 600) && (plasmaCells>500))
+                        plasmaCells = 600;
+                else if (plasmaCells <= 500)
+                        plasmaCells += 100;
+        }
 
-void Player::addShells(int add) {
-        shells += add;
 }
-
-void Player::addRockets(int add) {
-        rockets += add;
-}
-
-void Player::addPlasmaCells(int add) {
-        plasmaCells += add;
-}
-
 void Player::addWeapon(Weapon* add) {
 	bool have = false;
 
@@ -50,16 +83,14 @@ void Player::addWeapon(Weapon* add) {
 
 	if (have) {
 		string name = add->getWeaponName();
-		if (name == "pistol" || name == "chaingun")
-			addSlugs(5);
-		else if (name == "shotty" || name == "super shotty")
-			addShells(5);
-		else if (name == "rocket launcher")
-			addRockets(5);
-		else if (name == "plasma rifle" || name == "BFG")
-			addPlasmaCells(5);
-		else
-			cout << "derp";
+		if (name == "Pistol" || name == "Chaingun")
+			slugs += 20;
+		else if (name == "Shotgun" || name == "Super Shotgun")
+			shells += 4;
+		else if (name == "Rocket Launcher")
+			rockets += 5;
+		else if (name == "Plasma Rifle" || name == "BFG 9000")
+			plasmaCells += 100;
 	}
 	else
 		weaponList.push_back(add);

@@ -111,18 +111,6 @@ vector<Room*> parser(char* filename) {
                                         for(int j = 0; j < currentitemquantity; j++)
                                                 roomList.back()->addPickup(new Pickup("Plasma Cells"));
                                 }
-				else if (currentitem == "BER"){
-					 for(int j = 0; j < currentitemquantity; j++)
-						roomList.back()->addPickup(new Pickup("Berserker"));
-				}
-				else if (currentitem == "VIS"){
-					 for(int j = 0; j < currentitemquantity; j++)
-						roomList.back()->addPickup(new Pickup("Invisibility"));
-				}
-				else if (currentitem == "INV"){
-                                        for(int j = 0; j < currentitemquantity; j++)
-                                                roomList.back()->addPickup(new Pickup("Invincibility"));
-                                }
 				else if (currentitem =="PST"){
                                          for(int j = 0; j < currentitemquantity; j++)
                                                 roomList.back()->addWeapon(new Weapon("Pistol", 5));
@@ -227,7 +215,20 @@ int main(int argc, char* argv[]) {
 					advance = true;
 				}
 				else { // Still have stuff to pick up
+					cout << "You found items in this room!";
+					roomList[playerLocation]->printPickups();
+					roomList[playerLocation]->printWeapons();
+					for(int i = 0; i < roomList[playerLocation]->getNumPickups(); i++){
+						Pickup* pick = new Pickup(roomList[playerLocation]->getPickupList()->at(i)->getPickupName());
+						player->pickupItem(pick);
+						roomList[playerLocation]->removePickup(i);
+					}
+					for(int i = 0; i < roomList[playerLocation]->getNumWeapons(); i++){
+						Weapon* wep = new Weapon(roomList[playerLocation]->getWeaponList()->at(i)->getWeaponName(), roomList[playerLocation]->getWeaponList()->at(i)->getWeaponPower());
+						player->addWeapon(wep);
+						roomList[playerLocation]->removeWeapon(i);
 
+					}
 				}
 			}
 			else { // Things are still alive
@@ -248,6 +249,7 @@ int main(int argc, char* argv[]) {
 						cout << "1) Backpack" << endl <<
 							"2) Fight!" << endl <<
 							"3) Pickup Item" << endl;
+						cin >> choice;
 					}
 
 					if (choice == 1) { // Backpack choice. Shows all current weapons and allows the user to equip a different weapon
@@ -275,7 +277,7 @@ int main(int argc, char* argv[]) {
 					else if (roomSearched && roomList[playerLocation]->getNumPickups() == 0 && roomList[playerLocation]->getNumWeapons() == 0) {
 						cout << "Invalid Command" << endl;
 					}
-					else if (roomSearched) { // Pickup items
+					else if (roomSearched && (choice == 3)) { // Pickup items
 					}
 					else { // Bad command
 						cout << "Invalid Command" << endl;
