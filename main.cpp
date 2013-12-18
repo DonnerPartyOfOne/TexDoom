@@ -169,7 +169,8 @@ int main(int argc, char* argv[]) {
 	cin.getline(playerName,255);
 
 	Player* player = new Player(playerName, 5, 5, 100, 5, 5);
-
+	player->addWeapon(new Weapon("Pistol", 5));
+	player->setCurrentWeapon(0);
 
 	cout << "Description of all player stats and current values blah blah" << endl;
 	player->rerollStats();
@@ -189,8 +190,10 @@ int main(int argc, char* argv[]) {
 		}
 		else if (check == 1)
 			reroll = 0;
-		else
+		else {
 			cout << "Please enter either '0' to reroll or '1' to start the game." << endl;
+			cin >> check;
+		}
 	}
 
 
@@ -205,17 +208,18 @@ int main(int argc, char* argv[]) {
 	while(playerLocation < roomList.size()) {
 		bool roomSearched = false;
 		while(!advance) {
+			playerTurn = 1;
 			if (player->isDead()) { // You're dead
 				advance = true;
-				cout << "You have died!" << endl;
+				cout << endl << "You have died!" << endl;
 			}
 			else if (roomList[playerLocation]->getNumCharacters() == 0) { // Everything else is dead
 				if (roomList[playerLocation]->getNumPickups() == 0 && roomList[playerLocation]->getNumWeapons() == 0) { // You picked everything up
-					cout << "You have cleared the room. Advancing to next room." << endl;
+					cout << endl << "You have cleared the room. Advancing to next room." << endl;
 					advance = true;
 				}
 				else { // Still have stuff to pick up
-					cout << "You found items in this room!";
+					cout << endl << "You found items in this room!" << endl;
 					roomList[playerLocation]->printPickups();
 					roomList[playerLocation]->printWeapons();
 					for(int i = 0; i < roomList[playerLocation]->getNumPickups(); i++){
@@ -234,19 +238,19 @@ int main(int argc, char* argv[]) {
 			else { // Things are still alive
 				while (playerTurn) {
 					if (!roomSearched) { // Search option if room not searched yet
-						cout << "1) Backpack" << endl <<
+						cout << endl << "1) Backpack" << endl <<
 							"2) Fight!" << endl <<
 							"3) Search Room" << endl;
 						cin >> choice;
 					}
 					// Remove option if room searched and nothing to pick up
 					else if ((roomSearched) && (roomList[playerLocation]->getNumPickups() == 0) && (roomList[playerLocation]->getNumWeapons() == 0)) {
-						cout << "1) Backpack" << endl <<
+						cout << endl << "1) Backpack" << endl <<
 							"2) Fight!" << endl;
 						cin >> choice;
 					}
 					else { // Option to pick up items if room searched
-						cout << "1) Backpack" << endl <<
+						cout << endl << "1) Backpack" << endl <<
 							"2) Fight!" << endl <<
 							"3) Pickup Item" << endl;
 						cin >> choice;
@@ -254,30 +258,95 @@ int main(int argc, char* argv[]) {
 
 					if (choice == 1) { // Backpack choice. Shows all current weapons and allows the user to equip a different weapon
 						int weapon;
+						char change;
+						cout << endl << "Backpack:" << endl;
 						player->printWeaponList();
-						cout << "Select a weapon to equip" << endl;
-						cout << "Current Weapon: " << player->getCurrentWeapon()->getWeaponName() << endl;
-						cin >> weapon;
-						player->setCurrentWeapon(weapon);
+						cout << endl << "Current Weapon: " << player->getCurrentWeapon()->getWeaponName() << endl;
+						cout << "Would you like to equip a different weapon? (y/n)" << endl;
+						cin >> change;
+						if (change == 'y') {
+							cout << "Choose a new weapon (1, 2, 3, ... n)" << endl;
+							cin >> weapon;
+							player->setCurrentWeapon(weapon - 1);
+						}
 					}
-					else if (choice == 2) { // Fight choice
-						int target;
+                                        else if (choice == 2) { // Fight choice
+                                                int target;
+						cout << endl;
 						roomList[playerLocation]->printCharacters();
-						cout << "Choose a target" << endl;
+						cout << "Your current health: " << player->getCurrentHitpoints() << endl;
+						cout << "Choose a target (1, 2, 3, ... n)" << endl;
 						cin >> target;
 
-						roomList[playerLocation]->attack(1, player, target);
+						roomList[playerLocation]->attack(1, player, target - 1);
+						if (roomList[playerLocation]->getCharacterList()->at(target - 1)->getCurrentHitpoints() <= 0) { // Check to see if target is dead
+							cout << endl << "You killed " << roomList[playerLocation]->getCharacterList()->at(target - 1)->getCharacterName() << endl;
+							roomList[playerLocation]->removeCharacter(target - 1);
+						}
+						else
+							cout << endl << "You dealt " << player->getCurrentWeapon()->getWeaponPower() << " damage" << endl;
+						playerTurn = 0; // Turn over
 					}
 					else if (choice == 3 && !roomSearched) { // Third choice if room isn't searched yet
 						roomSearched = true;
+						cout << endl << "Items and weapons in the room" << endl;
 						roomList[playerLocation]->printPickups();
 						roomList[playerLocation]->printWeapons();
+						playerTurn = 0;
 					}
 					// Third choice but it isn't available
 					else if (roomSearched && roomList[playerLocation]->getNumPickups() == 0 && roomList[playerLocation]->getNumWeapons() == 0) {
 						cout << "Invalid Command" << endl;
 					}
 					else if (roomSearched && (choice == 3)) { // Pickup items
+						int choice;
+						if (roomList[playerLocation]->getNumWeapons() > 0 && roomList[playerLocation]->getNumPickups() > 0) { // Player chooses between an item or a weapon
+							char type;
+							cout << endl << "Weapons in room:" << endl;
+							roomList[playerLocation]->printWeapons();
+
+							cout << endl << "Items in room:" << endl;
+							roomList[playerLocation]->printPickups();
+
+							cout << "Would you like to pick up and item or a weapon? (w/i)" << endl;
+							cin >> type;
+
+							if (type == 'w') { // Choose a weapon
+								cout << "Choose a weapon to pick up (1, 2, 3, ... n)" << endl;
+        	                                                cin >> choice;
+	                                                        Weapon* wep = new Weapon(roomList[playerLocation]->getWeaponList()->at(choice - 1)->getWeaponName(), roomList[playerLocation]->getWeaponList()->at(choice - 1)->getWeaponPower());
+                	                                        player->addWeapon(wep);
+                        	                                roomList[playerLocation]->removeWeapon(choice);
+							}
+							else if (type == 'i') { // Choose an item
+								cout << "Choose an item to pick up (1, 2, 3, ... n)" << endl;
+                                        	                cin >> choice;
+                                	                        Pickup* pick = new Pickup(roomList[playerLocation]->getPickupList()->at(choice - 1)->getPickupName());
+                       		                                player->pickupItem(pick);
+                	                                        roomList[playerLocation]->removePickup(choice - 1);
+							}
+							else // Invalid command
+								cout << "Invalid Command" << endl;
+							playerTurn = 0;
+						}
+						else if (roomList[playerLocation]->getNumPickups() > 0) { // Only items in room, choose an item
+							cout << "Items in room:" << endl;
+							roomList[playerLocation]->printPickups();
+							cout << "Choose an item to pick up (1, 2, 3, ... n)" << endl;
+							cin >> choice;
+							Pickup* pick = new Pickup(roomList[playerLocation]->getPickupList()->at(choice - 1)->getPickupName());
+							player->pickupItem(pick);
+							roomList[playerLocation]->removePickup(choice - 1);
+						}
+						else if (roomList[playerLocation]->getNumWeapons() > 0) { // Only weapons in room, choose a weapon
+							cout << "Weapons in room:" << endl;
+							roomList[playerLocation]->printWeapons();
+							cout << "Choose a weapon to pick up (1, 2, 3, ... n)" << endl;
+							cin >> choice;
+							Weapon* wep = new Weapon(roomList[playerLocation]->getWeaponList()->at(choice - 1)->getWeaponName(), roomList[playerLocation]->getWeaponList()->at(choice - 1)->getWeaponPower());
+							player->addWeapon(wep);
+							roomList[playerLocation]->removeWeapon(choice - 1);
+						}
 					}
 					else { // Bad command
 						cout << "Invalid Command" << endl;
@@ -285,7 +354,16 @@ int main(int argc, char* argv[]) {
 				}
 
 				// Monster attacks
+				for (int i = 0; i < roomList[playerLocation]->getNumCharacters() && !(player->isDead()); i++) {
+					roomList[playerLocation]->attack(0, player, i);
+					if (player->getCurrentHitpoints() <= 0)
+						player->kill();
+					else
+						cout << endl << roomList[playerLocation]->getCharacterList()->at(i)->getCharacterName() << "dealt " << roomList[playerLocation]->getCharacterList()->at(i)->getPower() << " damage to you" << endl;
+				}
+				cout << "Your current health: " << player->getCurrentHitpoints() << endl;
 			}
 		}
+		playerLocation ++;
 	}
 }

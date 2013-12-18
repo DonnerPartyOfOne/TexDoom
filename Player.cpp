@@ -152,7 +152,7 @@ void Player::setCurrentWeapon(int index) {
 void Player::printWeaponList() {
 	for (int i = 0; i < weaponList.size(); i++) {
 		string name = weaponList.at(i)->getWeaponName();
-		cout << "1) " << name << endl;
+		cout << i << ") " << name << endl;
 		if (name == "Pistol" || name == "Chaingun")
 			cout << "Slugs: " << slugs << endl;
 		else if (name == "Shotgun" || name == "Super Shotgun")
