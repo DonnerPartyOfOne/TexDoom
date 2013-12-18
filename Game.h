@@ -6,7 +6,7 @@
 class Game {
 	public:
 		Game() {}
-		void start(vector<Room*>*);
+		int start(vector<Room*>*);
 	private:
 		vector<Room*>* roomList;
 };

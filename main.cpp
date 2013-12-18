@@ -7,23 +7,20 @@ using namespace std;
 
 vector<Room*>* parser(char* filename) {
 	string line;
-	vector<Room*>* roomList;
+	vector<Room*>* roomList = new vector<Room*>();
 	ifstream myfile(filename);
 	int roomIndex = 0;
-	cout << "Just read the file" << endl;
 	if(myfile.is_open()){
 		while(getline(myfile, line)){
 			roomIndex++;
-			cout << "Pushing Room" << endl;
 			roomList->push_back(new Room(roomIndex));
-			cout << "Room pushed" << endl;
 			for(int i = 0; i < line.size(); i = i+4){
 				string currentitem = line.substr(i,3);
 				int currentitemquantity = line[i+3]-'0';
 
 				if(currentitem == "FHP"){
 					for(int j = 0; j < currentitemquantity; j++)
-						roomList->at(roomList->size() - 1)->addCharacter(new Character("Former Human Private", 1,6,20,5));
+						roomList->back()->addCharacter(new Character("Former Human Private", 1,6,20,5));
 				}
 				else if (currentitem == "FHS"){
 					for(int j = 0; j < currentitemquantity; j++)
@@ -123,7 +120,7 @@ vector<Room*>* parser(char* filename) {
 				}
 				else if (currentitem == "SSH"){
 					 for(int j = 0; j < currentitemquantity; j++)
-						roomList->at(roomList->size() - 1)->addWeapon(new Weapon("Super Shotgun", 50));
+						roomList->back()->addWeapon(new Weapon("Super Shotgun", 50));
 				}
 				else if (currentitem =="CHA"){
                                          for(int j = 0; j < currentitemquantity; j++)
@@ -154,9 +151,10 @@ vector<Room*>* parser(char* filename) {
 
 int main(int argc, char* argv[]) {
 	char* filename;
+	int run = 1;
 
-	// WAD Parsing Code
 	filename = argv[1];
 	Game game;
-	game.start(parser(filename));
+	while(run)
+		run = game.start(parser(filename));
 }
