@@ -25,6 +25,7 @@ class Player: public Character {
 
 		void addWeapon(Weapon*);
 		void pickupItem(Pickup*);
+		void fire();
 
 		void setAgility(int);
 		void setAccuracy(int);

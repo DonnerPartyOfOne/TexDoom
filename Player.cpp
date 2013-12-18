@@ -81,19 +81,35 @@ void Player::addWeapon(Weapon* add) {
 			have = true;
 	}
 
-	if (have) {
-		string name = add->getWeaponName();
-		if (name == "Pistol" || name == "Chaingun")
-			slugs += 20;
-		else if (name == "Shotgun" || name == "Super Shotgun")
-			shells += 4;
-		else if (name == "Rocket Launcher")
-			rockets += 5;
-		else if (name == "Plasma Rifle" || name == "BFG 9000")
-			plasmaCells += 100;
-	}
-	else
+	string name = add->getWeaponName();
+	if (name == "Pistol" || name == "Chaingun")
+		slugs += 20;
+	else if (name == "Shotgun" || name == "Super Shotgun")
+		shells += 4;
+	else if (name == "Rocket Launcher")
+		rockets += 5;
+	else if (name == "Plasma Rifle" || name == "BFG 9000")
+		plasmaCells += 100;
+
+	if (!have)
 		weaponList.push_back(add);
+}
+
+void Player::fire() {
+	if (currentWeapon->getWeaponName() == "Pistol")
+		slugs -= 1;
+	else if (currentWeapon->getWeaponName() == "Chaingun")
+		slugs -= 5;
+	else if (currentWeapon->getWeaponName() == "Shotgun")
+		shells -= 1;
+	else if (currentWeapon->getWeaponName() == "Super Shotgun")
+		shells -= 2;
+	else if (currentWeapon->getWeaponName() == "Rocket Launcher")
+		rockets -=1;
+	else if (currentWeapon->getWeaponName() == "Plasma Rifle")
+		plasmaCells -= 5;
+	else if (currentWeapon->getWeaponName() == "BFG 9000")
+		plasmaCells -= 60;
 }
 
 void Player::setAgility(int agi) {
@@ -130,7 +146,6 @@ void Player::rerollStats() {
 			accuracy -=2;
 		if(melee > 8)
 			melee -=2;
-		
 	}
 }
 
@@ -152,7 +167,7 @@ void Player::setCurrentWeapon(int index) {
 void Player::printWeaponList() {
 	for (int i = 0; i < weaponList.size(); i++) {
 		string name = weaponList.at(i)->getWeaponName();
-		cout << i << ") " << name << endl;
+		cout << i + 1 << ") " << name << endl;
 		if (name == "Pistol" || name == "Chaingun")
 			cout << "Slugs: " << slugs << endl;
 		else if (name == "Shotgun" || name == "Super Shotgun")

@@ -88,7 +88,7 @@ void Room::printPickups() {
 
 void Room::printWeapons() {
 	for (int i = 0; i < weaponList->size(); i++ ) {
-		cout << (i + 1) << " ) " <<
+		cout << (i + 1) << ") " <<
 			"Name : " << weaponList->at(i)->getWeaponName() << endl;
 	}
 }
