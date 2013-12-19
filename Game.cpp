@@ -165,16 +165,25 @@ int Game::start(vector<Room*>* list) {
 							cout << "Your current health: " << player->getCurrentHitpoints() << endl;
 							cout << "Choose a target (1, 2, 3, ... n)" << endl;
 							cin >> target;
-
-							roomList->at(playerLocation)->attack(1, player, target - 1);
-							player->fire();
-							if (roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCurrentHitpoints() <= 0) { // Check to see if target is dead
-								cout << endl << "You killed " << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCharacterName() << endl;
-								roomList->at(playerLocation)->removeCharacter(target - 1);
+							if(weaponName == "BFG 9000"){
+								for(int i = 0; i < roomList->at(playerLocation)->getCharacterList()->size(); i++){
+									roomList->at(playerLocation)->attack(1,player,i);
+								}
+								player->fire();
+								cout << "You dealt 100 damage to everything in the room!";
 							}
-							else
-								cout << endl << "You dealt " << player->getCurrentWeapon()->getWeaponPower() << " damage" << endl <<
-								"Your target " << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCharacterName() << " has " << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCurrentHitpoints() << " hitpoints" << endl;
+							else{
+								int beforehit = roomList->at(playerLocation)->getCharacterList()->at(target-1)->getCurrentHitpoints();
+								roomList->at(playerLocation)->attack(1, player, target - 1);
+								player->fire();
+								if (roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCurrentHitpoints() <= 0) { // Check to see if target is dead
+									cout << endl << "You killed " << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCharacterName() << endl;
+									roomList->at(playerLocation)->removeCharacter(target - 1);
+								}
+								else
+									cout << endl << "You dealt " << roomList->at(playerLocation)->getCharacterList()->at(target-1)->getCurrentHitpoints()-beforehit << " damage" << endl <<
+									"Your target " << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCharacterName() << " has " << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCurrentHitpoints() << " hitpoints" << endl;
+							}
 							playerTurn = 0; // Turn over
 						}
 						else

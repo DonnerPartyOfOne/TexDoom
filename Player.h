@@ -22,6 +22,7 @@ class Player: public Character {
 		int getShells();
 		int getRockets();
 		int getPlasmaCells();
+		int getArmourRating();
 
 		void addWeapon(Weapon*);
 		void pickupItem(Pickup*);
@@ -32,7 +33,7 @@ class Player: public Character {
 		void setMelee(int);
 		void setCurrentHitpoints(int);
 		void setArmourRating(int);
-
+		void subtractArmour(int);
 		void rerollStats();
 		void printStats();
 

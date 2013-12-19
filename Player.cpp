@@ -23,7 +23,9 @@ int Player::getRockets() {
 int Player::getPlasmaCells() {
 	return plasmaCells;
 }
-
+int Player::getArmourRating(){
+	return armourRating;
+}
 void Player::pickupItem(Pickup* item){
 	if(item->getPickupName() == "HP+10"){
 		if((currentHitpoints>90) && (currentHitpoints < 100))
@@ -95,6 +97,9 @@ void Player::addWeapon(Weapon* add) {
 		weaponList.push_back(add);
 }
 
+void Player::subtractArmour(int x){
+	armourRating -= x;
+}
 void Player::fire() {
 	if (currentWeapon->getWeaponName() == "Pistol")
 		slugs -= 1;

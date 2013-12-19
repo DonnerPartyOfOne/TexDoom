@@ -1,5 +1,5 @@
 #include "Room.h"
-
+#include <stdlib.h>
 Room::Room(int number) {
 	roomNumber = number;
 	pickupList = new vector<Pickup*>;
@@ -97,9 +97,21 @@ void Room::attack(int a, Player* b, int c) {
 	if (a != 1 & a != 0)
 		cout << "derp" << endl;
 	if (a) {
-		characterList->at(c)->subtractHitpoints(b->getCurrentWeapon()->getWeaponPower());
+		int probabilityindex = (b->getAccuracy()-characterList->at(c)->getAgility())+rand() %10;
+		if(probabilityindex > 5)
+			characterList->at(c)->subtractHitpoints(b->getCurrentWeapon()->getWeaponPower());
 	}
 	else if (!a) {
-		b->subtractHitpoints(characterList->at(c)->getPower());
+		int probabilityindex = (characterList->at(c)->getAccuracy()-b->getAgility())+rand() % 10;
+		if(probabilityindex >5){
+			if(b->getArmourRating() > characterList->at(c)->getPower())
+				b->subtractArmour(characterList->at(c)->getPower());
+			else if ((b->getArmourRating() > 0) & b->getArmourRating() < characterList->at(c)->getPower()){
+				b->subtractHitpoints(characterList->at(c)->getPower()-b->getArmourRating());
+				b->setArmourRating(0);
+			}
+			else
+			b->subtractHitpoints(characterList->at(c)->getPower());
+		}
 	}
 }
