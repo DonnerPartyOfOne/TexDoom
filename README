@@ -8,6 +8,9 @@ Usage: compile with make and run "./texDoom x", where x is the name of the wad f
 Information on stats, etc:
 https://docs.google.com/spreadsheet/ccc?key=0AgndFoCtU3QqdDIxQWRZTjdNQ3BKSjFDc2d0ZGJxZHc&usp=sharing
 
+For testing, or if you just want to mess around, make your name "iddqd". This will give you 10,000 health
+and allow you to run your game without fear of dying.
+
 Wad construction:
 Anyone should be able to make their own wad for use with the engine. Each line in the
 wad corresponds to a room in the game, and wads are setup in a specific way.
