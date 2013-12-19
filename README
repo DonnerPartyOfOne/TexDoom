@@ -3,11 +3,21 @@ TexDoom
 contributors: collintb, dhartzog
 url: https://github.com/DonnerPartyOfOne/TexDoom
 
-Usage: compile with make and run "./texDoom x", where x is the name of the wad file. Currently only setup to use the included testingwad, general wad parsing and gameplay not complete yet.
+Usage: compile with make and run "./texDoom x", where x is the name of the wad file.
 
-This project is currently under construction, but all of the interactions between classes
-should be operating properly. No numbers are balanced and the game doesn't run fully yet.
-Must use the WAD file given. Project is reviewable.
+Information on stats, etc:
+https://docs.google.com/spreadsheet/ccc?key=0AgndFoCtU3QqdDIxQWRZTjdNQ3BKSjFDc2d0ZGJxZHc&usp=sharing
+
+Wad construction:
+Anyone should be able to make their own wad for use with the engine. Each line in the
+wad corresponds to a room in the game, and wads are setup in a specific way.
+In the excel sheet above, each item in the game has a designation, e.g. the plasma rifle
+designation is PLS. If you want to spawn a plasma rifle in the room, type "PLS1" 
+on the line. If you want to spawn 3 lost souls in the same room, type "LOS3" on the same
+line. Ammo drops have built in quantities listed on the sheet; for instance if you type
+"AMC2", that corresponds to 2 plasma cell ammo drops of 100 cells each. 
+
+This project is currently under construction, but it should be good to test.
 
 Text RPG based on the popular FPS Doom. The Doom engine was open sourced
 after its release, and was built to be very modular. The engine itself
