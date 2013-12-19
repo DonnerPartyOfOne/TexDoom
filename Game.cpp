@@ -2,7 +2,6 @@
 
 int Game::start(vector<Room*>* list) {
 	roomList = list;
-
 	char playerName[255];
 
 	// Game start
@@ -46,8 +45,10 @@ int Game::start(vector<Room*>* list) {
 	bool advance = false;
 
 	// Interaction
-	while(playerLocation < roomList->size()) {
+	//while(playerLocation < roomList->size()) {
+	while(roomList->size() > 0) {
 		bool roomSearched = false;
+		advance = false;
 		while(!advance) {
 			playerTurn = 1;
 			if (player->isDead()) { // You're dead
@@ -64,7 +65,6 @@ int Game::start(vector<Room*>* list) {
 			else if (roomList->at(playerLocation)->getNumCharacters() == 0) { // Everything else is dead
 				if (roomList->at(playerLocation)->getNumPickups() == 0 && roomList->at(playerLocation)->getNumWeapons() == 0) { // You picked everything up
 					cout << endl << "You have cleared the room. Advancing to next room." << endl;
-					advance = true;
 				}
 				else { // Still have stuff to pick up
 					cout << endl << "You found items in this room!" << endl;
@@ -81,6 +81,7 @@ int Game::start(vector<Room*>* list) {
 						roomList->at(playerLocation)->removeWeapon(i);
 					}
 				}
+				advance = true;
 			}
 			else { // Things are still alive
 				while (playerTurn) {
@@ -106,7 +107,6 @@ int Game::start(vector<Room*>* list) {
 						cin >> choice;
 					}
 					if (choice == 0) {
-						cout << endl<< "Thank you for playing texDoom!" << endl;
 						return 0;
 					}
 					else if (choice == 1) { // Backpack choice. Shows all current weapons and allows the user to equip a different weapon
@@ -174,7 +174,7 @@ int Game::start(vector<Room*>* list) {
 							}
 							else
 								cout << endl << "You dealt " << player->getCurrentWeapon()->getWeaponPower() << " damage" << endl <<
-								"Your target " << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCharacterName() << "has" << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCurrentHitpoints() << " hitpoints" << endl;
+								"Your target " << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCharacterName() << " has " << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCurrentHitpoints() << " hitpoints" << endl;
 							playerTurn = 0; // Turn over
 						}
 						else
@@ -182,9 +182,16 @@ int Game::start(vector<Room*>* list) {
 					}
 					else if (choice == 3 && !roomSearched) { // Third choice if room isn't searched yet
 						roomSearched = true;
-						cout << endl << "Items and weapons in the room" << endl;
-						roomList->at(playerLocation)->printPickups();
-						roomList->at(playerLocation)->printWeapons();
+
+						if (roomList->at(playerLocation)->getNumWeapons() == 0 && roomList->at(playerLocation)->getNumPickups() == 0)
+							cout << endl << "This room has no items or weapons" << endl;
+						else {
+							cout << endl << "Items and weapons in the room" << endl;
+							if (roomList->at(playerLocation)->getNumPickups() > 0)
+								roomList->at(playerLocation)->printPickups();
+							if (roomList->at(playerLocation)->getNumWeapons() > 0)
+								roomList->at(playerLocation)->printWeapons();
+						}
 						playerTurn = 0;
 					}
 					// Third choice but it isn't available
@@ -226,7 +233,7 @@ int Game::start(vector<Room*>* list) {
 							}
 						}
 						else if (roomList->at(playerLocation)->getNumPickups() > 0) { // Only items in room, choose an item
-							cout << "Items in room:" << endl;
+							cout << endl << "Items in room:" << endl;
 							roomList->at(playerLocation)->printPickups();
 							cout << "Choose an item to pick up (1, 2, 3, ... n)" << endl;
 							cin >> choice;
@@ -236,7 +243,7 @@ int Game::start(vector<Room*>* list) {
 							playerTurn = 0;
 						}
 						else if (roomList->at(playerLocation)->getNumWeapons() > 0) { // Only weapons in room, choose a weapon
-							cout << "Weapons in room:" << endl;
+							cout << endl << "Weapons in room:" << endl;
 							roomList->at(playerLocation)->printWeapons();
 							cout << "Choose a weapon to pick up (1, 2, 3, ... n)" << endl;
 							cin >> choice;
@@ -263,6 +270,16 @@ int Game::start(vector<Room*>* list) {
 				cout << "Your current health: " << player->getCurrentHitpoints() << endl;
 			}
 		}
-		playerLocation ++;
+		//playerLocation++;
+		roomList->at(0)->~Room();
+		roomList->erase(roomList->begin());
 	}
+
+	cout << endl << "You have beaten this wad!" << endl << "Would you like to play again? (y/n)" << endl;
+	char again;
+	cin >> again;
+	if (again == 'y')
+		return 1;
+	else
+		return 0;
 }

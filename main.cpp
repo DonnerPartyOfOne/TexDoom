@@ -157,4 +157,6 @@ int main(int argc, char* argv[]) {
 	Game game;
 	while(run)
 		run = game.start(parser(filename));
+
+	cout << endl << "Thank you for playing texDoom!" << endl;
 }
