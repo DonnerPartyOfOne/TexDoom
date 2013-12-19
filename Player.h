@@ -23,7 +23,6 @@ class Player: public Character {
 		int getRockets();
 		int getPlasmaCells();
 		int getArmourRating();
-
 		void addWeapon(Weapon*);
 		void pickupItem(Pickup*);
 		void fire();

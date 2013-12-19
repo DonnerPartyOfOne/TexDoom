@@ -26,6 +26,7 @@ int Player::getPlasmaCells() {
 int Player::getArmourRating(){
 	return armourRating;
 }
+
 void Player::pickupItem(Pickup* item){
 	if(item->getPickupName() == "HP+10"){
 		if((currentHitpoints>90) && (currentHitpoints < 100))

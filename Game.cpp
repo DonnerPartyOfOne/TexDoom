@@ -10,6 +10,9 @@ int Game::start(vector<Room*>* list) {
 	cin.getline(playerName,255);
 
 	Player* player = new Player(playerName, 5, 5, 100, 5, 5);
+
+	if(player->getCharacterName() == "iddqd")
+		player->setCurrentHitpoints(10000);
 	player->addWeapon(new Weapon("Pistol", 5));
 	player->setCurrentWeapon(0);
 	player->pickupItem(new Pickup("Slugs"));
