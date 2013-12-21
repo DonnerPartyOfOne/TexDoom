@@ -184,7 +184,7 @@ int Game::start(vector<Room*>* list) {
 									roomList->at(playerLocation)->removeCharacter(target - 1);
 								}
 								else
-									cout << endl << "You dealt " << roomList->at(playerLocation)->getCharacterList()->at(target-1)->getCurrentHitpoints()-beforehit << " damage" << endl <<
+									cout << endl << "You dealt " << beforehit-roomList->at(playerLocation)->getCharacterList()->at(target-1)->getCurrentHitpoints() << " damage" << endl <<
 									"Your target " << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCharacterName() << " has " << roomList->at(playerLocation)->getCharacterList()->at(target - 1)->getCurrentHitpoints() << " hitpoints" << endl;
 							}
 							playerTurn = 0; // Turn over
@@ -273,11 +273,12 @@ int Game::start(vector<Room*>* list) {
 
 				// Monster attacks
 				for (int i = 0; i < roomList->at(playerLocation)->getNumCharacters() && !(player->isDead()); i++) {
+					int beforehit = player->getCurrentHitpoints();
 					roomList->at(playerLocation)->attack(0, player, i);
 					if (player->getCurrentHitpoints() <= 0)
 						player->kill();
 					else
-						cout << endl << roomList->at(playerLocation)->getCharacterList()->at(i)->getCharacterName() << "dealt " << roomList->at(playerLocation)->getCharacterList()->at(i)->getPower() << " damage to you" << endl;
+						cout << endl << roomList->at(playerLocation)->getCharacterList()->at(i)->getCharacterName() << "dealt " << beforehit-player->getCurrentHitpoints() << " damage to you" << endl;
 				}
 				cout << "Your current health: " << player->getCurrentHitpoints() << endl;
 			}
